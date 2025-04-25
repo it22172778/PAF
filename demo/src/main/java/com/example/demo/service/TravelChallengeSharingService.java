@@ -51,6 +51,18 @@ public class TravelChallengeSharingService {
         );
     }
 
+    // Update a Travel Challenge by ID
+    public TravelChallengeSharing updateTravelChallenge(String id, TravelChallengeSharingDto dto) {
+        TravelChallengeSharing existingChallenge = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Challenge not found"));
+        existingChallenge.setTravellerName(dto.getTravellerName());
+        existingChallenge.setTravellerPhoneNo(dto.getTravellerPhoneNo());
+        existingChallenge.setChallengeTitle(dto.getChallengeTitle());
+        existingChallenge.setChallengeDescription(dto.getChallengeDescription());
+        existingChallenge.setTravellerAdvice(dto.getTravellerAdvice());
+        return repository.save(existingChallenge);
+    }
+
     // Delete a Travel Challenge by ID
     public void deleteTravelChallenge(String id) {
         repository.deleteById(id);
