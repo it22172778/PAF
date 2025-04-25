@@ -54,6 +54,19 @@ public class TravelExperienceService {
         );
     }
 
+    //Update a Travel Experience by ID
+    public TravelExperience updateTravelExperience(String id, TravelExperienceDto dto) {
+        TravelExperience existingExperience = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Experience not found"));
+        existingExperience.setTitle(dto.getTitle());
+        existingExperience.setLocation(dto.getLocation());
+        existingExperience.setDescription(dto.getDescription());
+        existingExperience.setDateVisited(dto.getDateVisited());
+        existingExperience.setMediaUrls(dto.getMediaUrls());
+        existingExperience.setCulturalInsights(dto.getCulturalInsights());
+        return repository.save(existingExperience);
+    }
+
     //Delete a Travel Experience by ID
     public void deleteTravelExperience(String id) {
         repository.deleteById(id);
